@@ -26,8 +26,27 @@ Als Beispiel wird ein einfacher Texteditor programmiert. Der Schwerpunkt liegt h
 - Fenstermanipulation
 - Benachrichtigungsverwaltung
 
+=== Basis
+In der `main()` Funktion wird eine `application` definiert, um die Anwendung starten zu können. Mittels `Window` wird ein Fenster erstellt. Hier können verschiedene Parameter übergeben werden, wie z.B. `onCloseRequest` oder der Title mittels `title`.
+
+Als einfacher Texteditor kann `BasicTextField` verwendet werden, welches ein Textfeld über das komplete Fenster implementiert. `TextFieldValue` speichert den aktuellen Wert des Textfeldes.
+
+[source, kotlin]
+----
+fun main() = application {
+    val text = remember { mutableStateOf(TextFieldValue(text = "Type some text here...")) }
+    Window(onCloseRequest = ::exitApplication, title = "Compose Demo") {
+        BasicTextField(value = text.value, onValueChange = { text.value = it })
+    }
+}
+----
+
+image:editor-basic-preview.gif[]
+
 === Desktop-Erweiterungen für Menüs
 Durch `MenuBar` wird die Menübar der Anwendung erstellt. Innerhalb von `MenuBar` kann ein `Menu` mit einen Namen erstellt werden. Innerhalb von `Menu` können nun verschiedene `Items` angelegt werden. Neben `Items` können auch Untermenüs erstellt werden.
+
+Mit `Separator` können die Items in Gruppen eingeteilt werden. Hierdurch wird ein Separator eingefügt
 
 [source, kotlin]
 ----
@@ -49,10 +68,48 @@ fun main() = application {
                 Item("Exit", onClick = ::exitApplication, shortcut = KeyShortcut(Key.Escape))
             }
         }
+
+        // ...
     }
 }
 ----
 
-Mittels `shortcut = KeyShortcut(key = Key.N, meta = true))` kann ein Shortcut erstellt werden, welcher im Menu angezeigt wird. Die Annotation `@OptIn(ExperimentalComposeUiApi::class)` wird hier benötigt, da die Keybinding funktion noch in experimenteler phase ist und sich ändern kann.
+Mittels `shortcut = KeyShortcut(key = Key.N, meta = true))` kann ein Shortcut erstellt werden, welcher im Menu angezeigt wird. Die Annotation `@OptIn(ExperimentalComposeUiApi::class)` wird hier benötigt, da die Keybinding Funktion noch in einer experimenteler Phase ist und sich ändern kann.
 
 image:compose-menu-preview.gif[]
+
+=== Tastenkombinationen
+Eine art von Tastenkombinationen haben wir vorhin bereits besprochen. Es ist allerdings auch möglich Tastenkombination zu implementieren, ohne ein Menüeintrag zu erstellen. 
+
+Im folgenden soll durch die Tastenkombination `ctrl + shift + d` der gesamte Text im Editor gelöscht werden. 
+Durch die Taste `Tab` wird aktuell nur ein Zeichen weitergesprungen. Dies soll so angepasst werden, dass nicht nur ein Zeichen, sondern 4 Zeichen weitergesprungen wird.
+
+`BasicTextField` wird so angepasst, das im Parameter `modifier` ein `Modifier.onPreviewKeyEvent` hinterlegt wird, welcher die Tastenkombination regelt.
+
+[source, kotlin]
+----
+BasicTextField(
+    value = text.value,
+    onValueChange = { text.value = it },
+    // Key shortcut without menu
+    modifier = Modifier.onPreviewKeyEvent {
+        when {
+            // delete all when ctrl + shift + d is pressed
+            it.isCtrlPressed && it.isShiftPressed && it.key == Key.D -> {
+                text.value = TextFieldValue("")
+                true
+            }
+            it.key == Key.Tab -> {
+                // Add 4 spaces when tab is pressed and reposition cursor
+                val newText = text.value.text + "    "
+                val length = newText.length
+                text.value = TextFieldValue(text = newText, selection = TextRange(length, length))
+                true
+            }
+            else -> false
+        }
+    }
+)
+---- 
+
+image:editor-delete-tab-preview.gif[]
