@@ -1,1 +1,58 @@
-= compose-desktop-demo
+= Compose for Desktop - Demo
+:icons: font
+:nofooter:
+:source-highlighter: highlightjs
+:highlightjsdir: highlight
+:imagesdir: img
+
+== Einführung
+Die `README Datei` dient als Handout zur Präsentation und dem beiligenden Kotlin Code Beispiel zu `Compose for Desktop`. 
+
+== Präsentation
+*TODO:* Inhalt
+
+== Empfohlenes Plugin
+Um eine Preview in IntelliJ zu erhalten, wird das folgende Plugin `Compose Multiplatform IDE Support` benötigt. Das Plugin kann über den Marktplace von der IDE geladen werden. 
+
+Um die Preview nun zu starten, muss zur Compose-Funktion die Annotation `@Preview` hinzugefügt werden. Durch das Plugin erscheint neben der Funktion ein Icon, womit sich das Preview Fenster öffnen lässt.
+
+image:compose-plugin-activate-preview.gif[]
+
+== Code Beispiel
+Als Beispiel wird ein einfacher Texteditor programmiert. Der Schwerpunkt liegt hierbei nicht bei `Compose` selbst, sondern bei den Merkmalen speziell für `Compose for Desktop`, welche auf der https://www.jetbrains.com/de-de/lp/compose-mpp/[Jetbrains Compose Multiplatform Website] vermerkt sind.
+
+- Desktop-Erweiterungen für Menüs
+- Tastenkombinationen
+- Fenstermanipulation
+- Benachrichtigungsverwaltung
+
+=== Desktop-Erweiterungen für Menüs
+Durch `MenuBar` wird die Menübar der Anwendung erstellt. Innerhalb von `MenuBar` kann ein `Menu` mit einen Namen erstellt werden. Innerhalb von `Menu` können nun verschiedene `Items` angelegt werden. Neben `Items` können auch Untermenüs erstellt werden.
+
+[source, kotlin]
+----
+// Some keys related APIs are still an experimental feature of Compose
+// and later API changes are possible.
+@OptIn(ExperimentalComposeUiApi::class)
+fun main() = application {
+    Window(onCloseRequest = ::exitApplication, title = "Compose Demo") {
+        MenuBar {
+            Menu("File") {
+                Item("New", onClick = {}, shortcut = KeyShortcut(key = Key.N, meta = true))
+                Item("Open", onClick = {})
+                Item("Save", onClick = {})
+                Separator()
+                Menu("Submenu") {
+                    Item("Item #1", onClick = {})
+                    Item("Item #2", onClick = {})
+                }
+                Item("Exit", onClick = ::exitApplication, shortcut = KeyShortcut(Key.Escape))
+            }
+        }
+    }
+}
+----
+
+Mittels `shortcut = KeyShortcut(key = Key.N, meta = true))` kann ein Shortcut erstellt werden, welcher im Menu angezeigt wird. Die Annotation `@OptIn(ExperimentalComposeUiApi::class)` wird hier benötigt, da die Keybinding funktion noch in experimenteler phase ist und sich ändern kann.
+
+image:compose-menu-preview.gif[]
