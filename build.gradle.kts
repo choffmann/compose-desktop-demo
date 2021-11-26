@@ -27,9 +27,9 @@ compose.desktop {
         mainClass = "MainKt"
 
         nativeDistributions {
-            appResourcesRootDir.set(project.layout.projectDirectory.dir("xxx"))
+            appResourcesRootDir.set(project.layout.projectDirectory.dir("resources"))
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "KotlinJvmComposeDesktopApplication"
+            packageName = "Compose Demo"
             packageVersion = "1.0.0"
         }
     }
