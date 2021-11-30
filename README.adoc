@@ -5,18 +5,39 @@
 :highlightjsdir: highlight
 :imagesdir: img
 
+*Vortrag zu Compose for Desktop in Web-/Mobile Technologie* +
+_von: Markus Johannsen, Lasse Saxer, Cedrik Hoffmann, Stefan Neufeldt_
+
 == Einführung
-Die `README Datei` dient als Handout zur Präsentation und dem beiligenden Kotlin Code Beispiel zu `Compose for Desktop`. 
+Die `README Datei` dient als Handout zur Präsentation und dem beiligenden Kotlin Code Beispiel zu `Compose for Desktop`.
 
 == Präsentation
-*TODO:* Inhalt
+`Compose for Desktop` basiert auf den bereits bekannten `Jetpack Compose` für Android. Jetbrains hat nun eine Version von Compose entwickelt, welche nicht nur zum erstellen von UI Oberflächen in Android Apps verwendet wird, sondern auch als Dektop Application.
 
-== Empfohlenes Plugin
-Um eine Preview in IntelliJ zu erhalten, wird das folgende Plugin `Compose Multiplatform IDE Support` benötigt. Das Plugin kann über den Marktplace von der IDE geladen werden. 
+Compose for Desktop ist seit dem 28. Oktober in der Beta und kann sich somit noch stark ändern.
 
-Um die Preview nun zu starten, muss zur Compose-Funktion die Annotation `@Preview` hinzugefügt werden. Durch das Plugin erscheint neben der Funktion ein Icon, womit sich das Preview Fenster öffnen lässt.
+=== Was ist Compose for Desktop
+- Compose for Desktop ist ein UI-Framework von Jetbrains zu Entwicklung von Desktop Apps. Dies sorgt für eine schnellere und einfachere Entwicklung. 
+- Es basiert, wie bereits erwähnt auf `Jetpack Compose`. Somit ist das Konzept und der Code gleich zu `Jetpack Compose`. 
+- Es wird noch aktiv entwickelt.
 
-image:compose-plugin-activate-preview.gif[]
+=== Vorteile 
+- Compose unterstützt hardwarebeschleunigtes Rendering über DirectX, OpenGL und Metal. 
+- Einzelne UI-Elemente lassen sich miteinander kombinieren. 
+- Unter der Haube läuft `Compose for Desktop` auf `AWT` bzw. `Swing`. Somit ist `Compose for Desktop` interoperabel zu `AWT` und `Swing`. 
+- Durch Compose for Desktop sind Desktop exklusive Features wie Menüerweiterungen, Tastenkombinationen, Fenstermanipulationen und vieles mehr leicht durch Compose umsetzbar.
+- Da `Compose for Desktop` auf den breiets bestehenden `Jetpack Compose` für Android basiert und viele Funktionen identisch zu einander sind, ist es für Entwickler leicht, Desktop UI's zu entwicklen, wenn sich diese breiets mit `Jetpack Compose` auseinander gesetzt haben.
+
+=== Einrichtung Compose for Desktop Projekt
+- Die aktuellste Version von Compose for Desktop ist in GitHub zu finden https://github.com/JetBrains/compose-jb
+- Optional kann in IntelliJ ein Preview-Plugin installiert werden, um die Composables-Previews zu rendern, https://github.com/choffmann/compose-desktop-demo#empfohlenes-plugin[siehe hier]
+- In IntelliJ kann ein Template zum Erstellen von Composeanwendungen ausgewählt werden
+
+=== Projekt über IntelliJ Wizard erstellen
+Beim erstellen eines neuen Projektes ist unter `Kotlin` in der Liste `Project Template` der Eintrag `Compose Multiplatform (Beta)` zu sehen. In diesen Abschnitt kann nun `Compose Desktop Application uses Kotlin XXX` ausgewählt werden. Mit dem Bestätigen kommt ein neues Fenster auf. Im Bereich `Template` wird `Compose Desktop Module` verwendet, um diese Template für eine Desktopanwendung zu erhalten.
+
+image:wizard-new-project.png[]
+image:wizard-new-project2.png[]
 
 == Code Beispiel
 Als Beispiel wird ein einfacher Texteditor programmiert. Der Schwerpunkt liegt hierbei nicht bei `Compose` selbst, sondern bei den Merkmalen speziell für `Compose for Desktop`, welche auf der https://www.jetbrains.com/de-de/lp/compose-mpp/[Jetbrains Compose Multiplatform Website] vermerkt sind.
@@ -25,6 +46,13 @@ Als Beispiel wird ein einfacher Texteditor programmiert. Der Schwerpunkt liegt h
 - Tastenkombinationen
 - Fenstermanipulation
 - Benachrichtigungsverwaltung
+
+=== Empfohlenes Plugin
+Um eine Preview in IntelliJ zu erhalten, wird das folgende Plugin `Compose Multiplatform IDE Support` benötigt. Das Plugin kann über den Marktplace von der IDE geladen werden. 
+
+Um die Preview nun zu starten, muss zur Compose-Funktion die Annotation `@Preview` hinzugefügt werden. Durch das Plugin erscheint neben der Funktion ein Icon, womit sich das Preview Fenster öffnen lässt.
+
+image:compose-plugin-activate-preview.gif[]
 
 === Basis
 In der `main()` Funktion wird eine `application` definiert, um die Anwendung starten zu können. Mittels `Window` wird ein Fenster erstellt. Hier können verschiedene Parameter übergeben werden, wie z.B. `onCloseRequest` oder der Title mittels `title`.
