@@ -14,7 +14,11 @@ Die `README Datei` dient als Handout zur Präsentation und dem beiligenden Kotli
 == Präsentation
 `Compose for Desktop` basiert auf den bereits bekannten `Jetpack Compose` für Android. Jetbrains hat nun eine Version von Compose entwickelt, welche nicht nur zum erstellen von UI Oberflächen in Android Apps verwendet wird, sondern auch als Dektop Application.
 
-Compose for Desktop ist seit dem 28. Oktober in der Beta und kann sich somit noch stark ändern.
+++++
+<s>Compose for Desktop ist seit dem 28. Oktober in der Beta und kann sich somit noch stark ändern.</s>
+++++
+
+*NOTE:* Compose for Desktop ist seit dem 02. Dezember in der Version 1.0.0 verfügbar, https://blog.jetbrains.com/kotlin/2021/12/compose-multiplatform-1-0-is-going-live/[siehe hier].
 
 === Was ist Compose for Desktop
 - Compose for Desktop ist ein UI-Framework von Jetbrains zu Entwicklung von Desktop Apps. Dies sorgt für eine schnellere und einfachere Entwicklung. 
